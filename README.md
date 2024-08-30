@@ -50,8 +50,8 @@ Using ->
 - can use numbers for file names for the tiles
 
 keys - use
-g -------------------- toggle grid mode for grid based placement
-mouse scroll up/down - scroll through different types of sprites loadded from data
-left shift ----------- toggle to change scroll through sprite types and sprites themselves
-mouse left click ----- place sprite on screen
-mouse right click ---- delete sprite on screen 
+- g -------------------- toggle grid mode for grid based placement
+- mouse scroll up/down - scroll through different types of sprites loadded from data
+- left shift ----------- toggle to change scroll through sprite types and sprites themselves
+- mouse left click ----- place sprite on screen
+- mouse right click ---- delete sprite on screen 
