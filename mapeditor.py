@@ -225,7 +225,7 @@ class Game:
                         print(self.gridMap)
                     if event.key == pygame.K_g:
                         self.inGridMode = not self.inGridMode
-                    if event.key == pygame.K_o:
+                    if event.key == pygame.K_s:
                         self.saveMap()
                     if event.key == pygame.K_l:
                         self.loadMap(self.currGridMap, self.currNonGridMap)

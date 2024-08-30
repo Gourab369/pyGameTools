@@ -20,5 +20,5 @@ dist/
 .idea
 
 # temp
-    # png
 *.png
+*.json

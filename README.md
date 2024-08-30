@@ -48,8 +48,12 @@ To be Implemented ->
 Using ->
 - load map tiles in spritePath
 - can use numbers for file names for the tiles
+- give name to map files in currGridMap and currNonGridMap in mapeditor.py 
+- every map will have two map files
 
 keys - use
+- s -------------------- save map
+- l -------------------- load map
 - g -------------------- toggle grid mode for grid based placement
 - mouse scroll up/down - scroll through different types of sprites loadded from data
 - left shift ----------- toggle to change scroll through sprite types and sprites themselves
