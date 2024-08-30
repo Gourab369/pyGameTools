@@ -18,6 +18,7 @@ class Game:
         pygame.display.set_caption("Map Editor")
         self.clock = pygame.time.Clock()
         self.window = pygame.display.set_mode(WINDOW_SIZE)
+        pygame.mouse.set_visible(False)
 
         self.spritePaths = {
             "decorations": "sprites/tiles/decor/",
@@ -36,10 +37,6 @@ class Game:
         self.currGridMap = "0map.json"
         self.currNonGridMap = "1map.json"
         self.inGridMode = False
-        self.targetCenter = (
-            self.mouseCoord[0] - TARGET_OFFSET,
-            self.mouseCoord[1] - TARGET_OFFSET,
-        )
 
     def loadMap(self, currGridMap, currNonGridMap):
         with open(MAP_FILE_PATH + currGridMap, "r") as file:
@@ -186,6 +183,14 @@ class Game:
         rectH = pygame.Rect(posH, (gridPercent, 1))
         return (rectV, rectH)
 
+    def spriteCenterOnCursor(self):
+        return (
+            self.mouseCoord[0]
+            - (self.sprites[self.spriteType][self.currSprite].get_width() // 2),
+            self.mouseCoord[1]
+            - (self.sprites[self.spriteType][self.currSprite].get_height() // 2),
+        )
+
     def renderTargetHighLighter(self, pos):
         currTargetRect = self.genTargetRect(pos)
         for rec in currTargetRect:
@@ -204,46 +209,12 @@ class Game:
                         if self.inGridMode:
                             self.place(self.mouseCoord)
                         else:
-                            self.place(
-                                (
-                                    self.targetCenter[0]
-                                    - (
-                                        self.sprites[self.spriteType][
-                                            self.currSprite
-                                        ].get_width()
-                                        // 2
-                                    ),
-                                    self.targetCenter[1]
-                                    - (
-                                        self.sprites[self.spriteType][
-                                            self.currSprite
-                                        ].get_height()
-                                        // 2
-                                    ),
-                                )
-                            )
+                            self.place(self.spriteCenterOnCursor())
                     if event.button == 3:  # right
                         if self.inGridMode:
                             self.delete(self.mouseCoord)
                         else:
-                            self.delete(
-                                (
-                                    self.targetCenter[0]
-                                    - (
-                                        self.sprites[self.spriteType][
-                                            self.currSprite
-                                        ].get_width()
-                                        // 2
-                                    ),
-                                    self.targetCenter[1]
-                                    - (
-                                        self.sprites[self.spriteType][
-                                            self.currSprite
-                                        ].get_height()
-                                        // 2
-                                    ),
-                                )
-                            )
+                            self.delete(self.spriteCenterOnCursor()) # precision tiles need collision based deletion 
                     if event.button == 5:  # s_down
                         self.changeSprite(SCROLL_SPEED)
                     if event.button == 4:  # s_up
@@ -267,23 +238,15 @@ class Game:
             self.renderMap()
 
             self.mouseCoord = pygame.mouse.get_pos()
-            self.targetCenter = (
-                self.mouseCoord[0] - TARGET_OFFSET,
-                self.mouseCoord[1] - TARGET_OFFSET,
-            )
 
             if self.inGridMode:
                 self.window.blit(
-                    self.getCurrSprite(True),
-                    (self.mouseCoord[0] + OFFSET, self.mouseCoord[1] + OFFSET),
-                )
+                    self.getCurrSprite(True), self.spriteCenterOnCursor())
                 self.renderHighLighter()
             else:
                 self.window.blit(
-                    self.getCurrSprite(True),
-                    (self.mouseCoord[0] + OFFSET, self.mouseCoord[1] + OFFSET),
-                )
-                self.renderTargetHighLighter(self.targetCenter)
+                    self.getCurrSprite(True), self.spriteCenterOnCursor())
+                self.renderTargetHighLighter(self.mouseCoord)
 
             pygame.display.update()
             self.clock.tick(60)
