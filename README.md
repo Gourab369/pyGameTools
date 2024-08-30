@@ -16,7 +16,7 @@ Implemented ->
 
 To be Implemented ->
 1. Transform (scaling, rotations), visibility (opacity) change to picture during animation
-Maybe
+- Maybe
 2. Some buttons/Key press to play and stop or pause (pause not implemented yet)
 3. Slider or buttons to distribute frames for each picture
 4. Buttons/key press for applying transform effects to each picture
