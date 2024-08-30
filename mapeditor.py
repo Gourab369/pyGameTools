@@ -21,10 +21,10 @@ class Game:
         pygame.mouse.set_visible(False)
 
         self.spritePaths = {
-            "decorations": "sprites/tiles/decor/",
-            "grass": "sprites/tiles/grass/",
-            "large_decorations": "sprites/tiles/large_decor/",
-            "stone": "sprites/tiles/stone/",
+            "decorations": "sprites/tiles/decorations/",
+            "grass": "sprites/tiles/grass_varient/",
+            "large_decorations": "sprites/tiles/large_decorations/",
+            "stone": "sprites/tiles/stone_varient/",
         }
         self.mouseCoord = (0, 0)
         self.sprites = self.spriteLoader()

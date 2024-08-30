@@ -20,7 +20,5 @@ dist/
 .idea
 
 # temp
-    # data
-data/
     # png
 *.png
