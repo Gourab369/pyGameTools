@@ -36,14 +36,14 @@ Map Editor - (mapeditor.py)
 Features :-
 Implemented ->
 1. Save and load Map
-2. 2D map editing with Precision Tile placement & Grid based Tile placement
+2. 2D map editing with Precision Tile placement & Grid based Tile placement & Deletion
 3. Preview and placement highlighting during placement
 
 To be Implemented ->
-1. Precision Tile deleting
-2. Texture overlay for a collection of grid space
-3. Setting a base grid size for a map before starting to edit
-4. More flexible sprite loading and choosing
+- Maybe
+4. Texture overlay for a collection of grid space
+5. Setting a base grid size for a map before starting to edit
+6. More flexible sprite loading and choosing
 
 Using ->
 - load map tiles in spritePath
