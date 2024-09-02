@@ -8,7 +8,9 @@ BASE_PATH = "data/"
 def loadImgs(Path: str) -> List[pygame.Surface]:
     imgs = []
     for i in sorted(os.listdir(BASE_PATH + Path)):
-        imgs.append(loadImg(Path + i))
+        ext = i.split('.')
+        if ext[1] == 'png':
+            imgs.append(loadImg(Path + i))
     return imgs
 
 

@@ -37,6 +37,7 @@ class Game:
         self.currGridMap = "0map.json"
         self.currNonGridMap = "1map.json"
         self.inGridMode = False
+        self.collideables = {}
 
     def loadMap(self, currGridMap, currNonGridMap):
         with open(MAP_FILE_PATH + currGridMap, "r") as file:
@@ -52,7 +53,22 @@ class Game:
             self.gridMap[tuple(keys)] = tuple(v)
         for k, v in ng.items():
             keys = (int(k.split(",")[0]), int(k.split(",")[1]))
+            self.collideables[tuple(keys)] = (self.genCollideables(v))
             self.nonGridMap[tuple(keys)] = tuple(v)
+
+    def genCollideables(self, sprite):
+        return pygame.mask.from_surface(self.sprites[sprite[0]][sprite[1]])
+
+    def checkCollision(self, pos):
+        for k,v in self.collideables.items():
+            offset = (pos[0]-k[0], pos[1]-k[1]) # yeah the actual pos of surface is not saved when using .from_surface()
+            try:                # need this as get_at will raise error if pos is outside mask
+                if v.get_at(offset) == 1:
+                    self.collideables.pop(k, "no such mask found")
+                    return k
+            except:
+                continue
+        return ()
 
     def saveMap(self):
         g = {}
@@ -84,6 +100,7 @@ class Game:
             )
         else:
             self.nonGridMap[pos] = (self.spriteType, self.currSprite)
+            self.collideables[pos] = pygame.mask.from_surface(self.sprites[self.spriteType][self.currSprite])
 
     def delete(self, pos):
         if self.inGridMode:
@@ -91,7 +108,9 @@ class Game:
                 (pos[0] // GRID_SIZE, pos[1] // GRID_SIZE), "No such key in map found"
             )
         else:
-            self.nonGridMap.pop(pos, "No such key in map found")
+            value = self.checkCollision(pos)
+            if len(value):
+                self.nonGridMap.pop(value, "No such key in map found")
 
     def changeSprite(self, change):
         if self.changeSprites:  # change sprites
@@ -111,6 +130,7 @@ class Game:
                 self.spriteType = len(self.sprites) - 1
 
     def getCurrSprite(self, mouse=False):
+        self.sprites
         if mouse:
             s = self.sprites[self.spriteType][self.currSprite]
             s.set_alpha(128)
@@ -214,7 +234,7 @@ class Game:
                         if self.inGridMode:
                             self.delete(self.mouseCoord)
                         else:
-                            self.delete(self.spriteCenterOnCursor()) # precision tiles need collision based deletion 
+                            self.delete(self.mouseCoord)
                     if event.button == 5:  # s_down
                         self.changeSprite(SCROLL_SPEED)
                     if event.button == 4:  # s_up
@@ -222,7 +242,6 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LSHIFT:
                         self.changeSprites = not self.changeSprites
-                        print(self.gridMap)
                     if event.key == pygame.K_g:
                         self.inGridMode = not self.inGridMode
                     if event.key == pygame.K_s:
