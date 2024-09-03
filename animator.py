@@ -1,7 +1,6 @@
 import pygame as p
 import sys
-import random
-from scripts.util import scale, center, loadImgs
+from scripts.util import scale, centerOnSurface, loadImgs
 from scripts.animation import Animation
 
 class Game:
@@ -9,12 +8,9 @@ class Game:
         p.init()
         p.display.set_caption("Animation Preview")
         self.clock = p.time.Clock()
-        # self.native_w, self.native_h = (
-        #     p.display.Info().current_w,
-        #     p.display.Info().current_h,
-        # )
-        # self.window = p.display.set_mode((self.native_w, self.native_h))
         self.window = p.display.set_mode((1000, 800))
+
+        self.degree = 0
         
         self.demo = [scale(i, (5, 5)) for i in loadImgs("anims/")]
         v = [5]*len(self.demo)
@@ -33,7 +29,11 @@ class Game:
 
 
             self.window.fill((222, 122, 122))
-            self.idleAnim.play(center(self.idleAnim._surfaces[self.idleAnim._currentSurface], self.window))
+            self.idleAnim.setModifiers({self.idleAnim.modifiers["ROTATE_AC"]: self.degree})
+            if self.idleAnim.currentSurface == 4:
+                self.idleAnim.setModifiers({self.idleAnim.modifiers["SCALE"]: (2,2), self.idleAnim.modifiers["OPACITY"]: 100})
+            self.idleAnim.play(centerOnSurface(self.idleAnim.surfaces[self.idleAnim.currentSurface], self.window))
+            self.degree= (self.degree + 3) % 360
             p.display.update()
             self.clock.tick(60)
 

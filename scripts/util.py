@@ -8,8 +8,8 @@ BASE_PATH = "data/"
 def loadImgs(Path: str) -> List[pygame.Surface]:
     imgs = []
     for i in sorted(os.listdir(BASE_PATH + Path)):
-        ext = i.split('.')
-        if ext[1] == 'png':
+        ext = i.split(".")
+        if ext[1] == "png":
             imgs.append(loadImg(Path + i))
     return imgs
 
@@ -18,7 +18,6 @@ def loadImg(Path: str) -> pygame.Surface:
     img = pygame.image.load(BASE_PATH + Path).convert()
     img.set_colorkey((0, 0, 0))
     return img
-
 
 
 def scale2x(
@@ -42,9 +41,15 @@ def scale(
     return pygame.transform.scale(Surface, Size)
 
 
-def center(
+def centerOnSurface(
     SurfaceToCenter: pygame.Surface, CenterOn: pygame.Surface
 ) -> Tuple[int, int]:
-    _x = CenterOn.get_size()[0] / 2.0 - SurfaceToCenter.get_size()[0] / 2.0
-    _y = CenterOn.get_size()[1] / 2.0 - SurfaceToCenter.get_size()[1] / 2.0
+    _x = CenterOn.get_width() / 2.0 - SurfaceToCenter.get_width() / 2.0
+    _y = CenterOn.get_height() / 2.0 - SurfaceToCenter.get_height() / 2.0
+    return (_x, _y)
+
+
+def centerOnPos(SurfaceToCenter: pygame.Surface, pos) -> Tuple[int, int]:
+    _x = pos[0] - SurfaceToCenter.get_width() / 2.0
+    _y = pos[1] - SurfaceToCenter.get_height() / 2.0
     return (_x, _y)

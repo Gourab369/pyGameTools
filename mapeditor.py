@@ -143,7 +143,7 @@ class Game:
             s.append(loadImgs(v))
         return s
 
-    # high Lighter
+    # << high Lighter
     def genRect(self, pos):
         gridPercent = int(GRID_SIZE * 0.2)
         posTL = (pos[0] - (pos[0] % GRID_SIZE) - 1, pos[1] - (pos[1] % GRID_SIZE) - 1)
@@ -216,7 +216,7 @@ class Game:
         for rec in currTargetRect:
             pygame.draw.rect(self.window, (255, 0, 0), rec)
 
-    # high Lighter
+    # >> high Lighter
 
     def run(self):
         while True:
