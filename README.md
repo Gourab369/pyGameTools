@@ -13,14 +13,14 @@ Animator - (animation.py)
 Features :-
 Implemented ->
 1. Picture set rendering based on frames
+2. Transform (scaling, rotations), visibility (opacity) Modifiers added which can be applyed to animation at anytime
 
 To be Implemented ->
-1. Transform (scaling, rotations), visibility (opacity) change to picture during animation
 - Maybe
-2. Some buttons/Key press to play and stop or pause (pause not implemented yet)
-3. Slider or buttons to distribute frames for each picture
-4. Buttons/key press for applying transform effects to each picture
-5. Saving an animation created using animator.py
+3. Some buttons/Key press to play and stop or pause (pause not implemented yet)
+4. Slider or buttons to distribute frames for each picture
+5. Buttons/key press for applying transform effects to each picture
+6. Saving an animation created using animator.py
 
 Using ->
 - use the Animation class to initialize the pictures and frames and whether to loop
@@ -28,6 +28,7 @@ Using ->
 - along with the number of frames each picture will be displayed for
 - just fill up the data/anims/ directory with set of pictures for a perticular animation
 - call the .play() to play the animation
+- at any point in time during the animation is running Modifiers can be applyed to it modifiers include scaling, opacity, rotations clock and anticlock wise
 - example of this is in animator.py
 
 ------------------------------------------------------------------------------
